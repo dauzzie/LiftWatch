@@ -14,14 +14,25 @@ struct WatchContentView: View {
                     Label("Log Workout", systemImage: "plus.circle.fill")
                 }
 
-                Text(sync.syncStatus)
-                    .font(.caption2)
-                    .foregroundStyle(.secondary)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(sync.syncStatus)
+                        .font(.caption2)
+                        .foregroundStyle(syncColor)
+                    if !sync.syncDetail.isEmpty {
+                        Text(sync.syncDetail)
+                            .font(.caption2)
+                            .lineLimit(2)
+                            .foregroundStyle(.secondary)
+                    }
+                }
 
                 ForEach(store.logs) { log in
                     HStack(spacing: 8) {
                         VStack(alignment: .leading, spacing: 3) {
-                            Label(log.name, systemImage: log.symbol)
+                            Label(
+                                ExerciseNaming.displayName(name: log.name, symbol: log.symbol, category: log.category),
+                                systemImage: log.symbol
+                            )
                                 .font(.subheadline)
                                 .foregroundStyle(WorkoutColors.color(for: log))
                                 .lineLimit(2)
@@ -74,6 +85,16 @@ struct WatchContentView: View {
                 return "\(minutesText) • Avg \(pace)"
             }
             return minutesText
+        }
+    }
+
+    private var syncColor: Color {
+        switch sync.syncLevel {
+        case .idle: return .secondary
+        case .syncing: return .orange
+        case .success: return .green
+        case .warning: return .yellow
+        case .error: return .red
         }
     }
 }

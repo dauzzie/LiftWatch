@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,7 @@
 		15BFA566D7F03068C61E895B /* IOSContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD920E6A3B78CA5421FFB9B4 /* IOSContentView.swift */; };
 		2A4E90B13F4661AB4A79F837 /* WatchSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EDDE2332B66E1395BCE326 /* WatchSyncManager.swift */; };
 		2E1579AB1582BBF49A6B6F68 /* SymbolLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520A32BFB2C7F6270901E33A /* SymbolLibrary.swift */; };
+		308F6F17BAD1C09103BE5934 /* ProgressiveOverloadEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CC9668DAF5F2A4CDDA1592 /* ProgressiveOverloadEntry.swift */; };
 		3C74AFFBFC31FF8AABC99D24 /* ExerciseLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CD6488FFE36225F5732979 /* ExerciseLog.swift */; };
 		3D264AEF652FCFB40711ACCF /* AddExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C4BDC8B0D624B0B2119A8 /* AddExerciseView.swift */; };
 		3FD09429F87073ADC3C5F972 /* WatchAddExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5634CC03E9A1415C1207C819 /* WatchAddExerciseView.swift */; };
@@ -22,15 +23,26 @@
 		51FCC69C0529B4B9477F852B /* WorkoutColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF78279CD9A0DD874A869AD /* WorkoutColors.swift */; };
 		5980CF4D1C3B6187C057F55C /* LiftWatchWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E3ACECF40BD317F9F6029E /* LiftWatchWatchApp.swift */; };
 		5A63A5CDEB2B08552FB2B971 /* WorkoutColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF78279CD9A0DD874A869AD /* WorkoutColors.swift */; };
+		5D739B800706F2854B95543A /* DataBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F69BFC58347999581F4792A /* DataBackup.swift */; };
+		6049CF62239A9327399FE2FF /* ProgressiveOverloadEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CC9668DAF5F2A4CDDA1592 /* ProgressiveOverloadEntry.swift */; };
+		60EDE8127ADC0609C548E32B /* ExerciseNaming.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26913A54A356F1BE93CDA35 /* ExerciseNaming.swift */; };
 		64653BD6AC8C97314C226B48 /* WorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E67AE1ED602829D7A30A0E /* WorkoutSession.swift */; };
+		705AC22AA035B4C51F312A22 /* LiftWatchBackupDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F28664690B198928BBFA10 /* LiftWatchBackupDocument.swift */; };
+		84237CBBAEDD116ED6C7809F /* BackupSchemaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1080A42315E8FEBAC20129 /* BackupSchemaTests.swift */; };
 		87AC1CF7F5C387EB9FD63911 /* IOSTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B3BAB58368BDB70B1B3D72 /* IOSTabView.swift */; };
+		93918CB959E58E85F1E9FE27 /* ExerciseNaming.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26913A54A356F1BE93CDA35 /* ExerciseNaming.swift */; };
 		997BD49AEF19702622E4D76F /* WeightliftingCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEE66A4278F2150DB380D4A /* WeightliftingCatalog.swift */; };
+		A20F11B74C0363092DCC7FDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7788A37A51C9A3AFA1E8A6A4 /* Assets.xcassets */; };
 		A2FFD1EBE50EBE8512FEE7D2 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DE05DAE9828E86C8B3E22B /* AppSettings.swift */; };
 		AB1A20AD33E5396E20F189CB /* ExerciseLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CD6488FFE36225F5732979 /* ExerciseLog.swift */; };
 		AB1E7B27832858B09A4876ED /* WorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E67AE1ED602829D7A30A0E /* WorkoutSession.swift */; };
+		B53380C68A3895C0B4D5D6EA /* DataBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F69BFC58347999581F4792A /* DataBackup.swift */; };
 		C8C62087B9CBE9688EB054C1 /* IOSHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1F2902118BEB1013480E1B /* IOSHistoryView.swift */; };
 		D1C8EB03EEDB07A0EC5D610F /* WatchSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EDDE2332B66E1395BCE326 /* WatchSyncManager.swift */; };
+		D5E3B6ABF0D36EB1656137EB /* CloudSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 762CBC33AA120D677D212845 /* CloudSyncManager.swift */; };
+		D907EA77C0D36106FAFF8CD3 /* ExerciseNamingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E693E68EFBDA12489B0815F /* ExerciseNamingTests.swift */; };
 		DE790F52A135AE4F418B5216 /* IOSExerciseLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9C27A636438150316D1547 /* IOSExerciseLibraryView.swift */; };
+		E05A2A179437605039BFD3C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB0ABE34849D05FB233168E9 /* Assets.xcassets */; };
 		E5887CC44A57127A08C9304A /* SymbolLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520A32BFB2C7F6270901E33A /* SymbolLibrary.swift */; };
 		EA88D052BFAF1B518A4ADC2B /* WatchContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61C2EA4AF75388179748C0A /* WatchContentView.swift */; };
 		EBE0E7FE218858FD64E55AD4 /* IOSSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8505086E7DC26A8DCFCF865A /* IOSSettingsView.swift */; };
@@ -47,6 +59,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = B29A76694206C9D88AF33B6D;
 			remoteInfo = LiftWatchWatchApp;
+		};
+		4C4A76827BCB5D7BAFA0087A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F980602E91E79D1B442BB54C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CD196D4096B1A84F7E808979;
+			remoteInfo = LiftWatchIOS;
 		};
 		85E3D596BE28F6D38A42B5CE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -83,25 +102,36 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		00F260DAEABC321D11FFA181 /* LiftWatchIOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LiftWatchIOS.entitlements; sourceTree = "<group>"; };
 		02E3ACECF40BD317F9F6029E /* LiftWatchWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftWatchWatchApp.swift; sourceTree = "<group>"; };
+		1E693E68EFBDA12489B0815F /* ExerciseNamingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseNamingTests.swift; sourceTree = "<group>"; };
 		3EF78279CD9A0DD874A869AD /* WorkoutColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutColors.swift; sourceTree = "<group>"; };
+		3F69BFC58347999581F4792A /* DataBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBackup.swift; sourceTree = "<group>"; };
 		520A32BFB2C7F6270901E33A /* SymbolLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolLibrary.swift; sourceTree = "<group>"; };
 		5634CC03E9A1415C1207C819 /* WatchAddExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchAddExerciseView.swift; sourceTree = "<group>"; };
 		6CEE66A4278F2150DB380D4A /* WeightliftingCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightliftingCatalog.swift; sourceTree = "<group>"; };
+		6F1080A42315E8FEBAC20129 /* BackupSchemaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupSchemaTests.swift; sourceTree = "<group>"; };
 		6F402DCA95E28142CE0419AF /* ExerciseDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDefinition.swift; sourceTree = "<group>"; };
 		72E67AE1ED602829D7A30A0E /* WorkoutSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSession.swift; sourceTree = "<group>"; };
+		73CC9668DAF5F2A4CDDA1592 /* ProgressiveOverloadEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressiveOverloadEntry.swift; sourceTree = "<group>"; };
+		762CBC33AA120D677D212845 /* CloudSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudSyncManager.swift; sourceTree = "<group>"; };
+		7788A37A51C9A3AFA1E8A6A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8505086E7DC26A8DCFCF865A /* IOSSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSSettingsView.swift; sourceTree = "<group>"; };
 		91B3BAB58368BDB70B1B3D72 /* IOSTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSTabView.swift; sourceTree = "<group>"; };
 		94DE05DAE9828E86C8B3E22B /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		98530B59666E634BAEF8828F /* LiftWatchWatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiftWatchWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A26913A54A356F1BE93CDA35 /* ExerciseNaming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseNaming.swift; sourceTree = "<group>"; };
 		A4CD6488FFE36225F5732979 /* ExerciseLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseLog.swift; sourceTree = "<group>"; };
 		A617DDC7BE2C6042BEFAE2D4 /* LiftWatchWatchExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = LiftWatchWatchExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		ACFAA66A59F0B64ADA0AD4A6 /* LiftWatchIOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = LiftWatchIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACFAA66A59F0B64ADA0AD4A6 /* LiftWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiftWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD920E6A3B78CA5421FFB9B4 /* IOSContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSContentView.swift; sourceTree = "<group>"; };
 		B7E46E8F8EB8366397562832 /* LiftWatchIOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftWatchIOSApp.swift; sourceTree = "<group>"; };
+		C3F28664690B198928BBFA10 /* LiftWatchBackupDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftWatchBackupDocument.swift; sourceTree = "<group>"; };
 		E61C2EA4AF75388179748C0A /* WatchContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchContentView.swift; sourceTree = "<group>"; };
 		E99C4BDC8B0D624B0B2119A8 /* AddExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseView.swift; sourceTree = "<group>"; };
+		EB0ABE34849D05FB233168E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EE2167A086B35451C566B80D /* ExerciseStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseStore.swift; sourceTree = "<group>"; };
+		F250F7EE406F4C1694D6057D /* LiftWatchTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = LiftWatchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7505FA19E83B49701B854C7 /* IOSWorkoutSimilarityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSWorkoutSimilarityView.swift; sourceTree = "<group>"; };
 		F7EDDE2332B66E1395BCE326 /* WatchSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSyncManager.swift; sourceTree = "<group>"; };
 		FC9C27A636438150316D1547 /* IOSExerciseLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSExerciseLibraryView.swift; sourceTree = "<group>"; };
@@ -113,9 +143,13 @@
 			isa = PBXGroup;
 			children = (
 				94DE05DAE9828E86C8B3E22B /* AppSettings.swift */,
+				762CBC33AA120D677D212845 /* CloudSyncManager.swift */,
+				3F69BFC58347999581F4792A /* DataBackup.swift */,
 				6F402DCA95E28142CE0419AF /* ExerciseDefinition.swift */,
 				A4CD6488FFE36225F5732979 /* ExerciseLog.swift */,
+				A26913A54A356F1BE93CDA35 /* ExerciseNaming.swift */,
 				EE2167A086B35451C566B80D /* ExerciseStore.swift */,
+				73CC9668DAF5F2A4CDDA1592 /* ProgressiveOverloadEntry.swift */,
 				520A32BFB2C7F6270901E33A /* SymbolLibrary.swift */,
 				F7EDDE2332B66E1395BCE326 /* WatchSyncManager.swift */,
 				6CEE66A4278F2150DB380D4A /* WeightliftingCatalog.swift */,
@@ -129,12 +163,15 @@
 			isa = PBXGroup;
 			children = (
 				E99C4BDC8B0D624B0B2119A8 /* AddExerciseView.swift */,
+				7788A37A51C9A3AFA1E8A6A4 /* Assets.xcassets */,
 				AD920E6A3B78CA5421FFB9B4 /* IOSContentView.swift */,
 				FC9C27A636438150316D1547 /* IOSExerciseLibraryView.swift */,
 				FE1F2902118BEB1013480E1B /* IOSHistoryView.swift */,
 				8505086E7DC26A8DCFCF865A /* IOSSettingsView.swift */,
 				91B3BAB58368BDB70B1B3D72 /* IOSTabView.swift */,
 				F7505FA19E83B49701B854C7 /* IOSWorkoutSimilarityView.swift */,
+				C3F28664690B198928BBFA10 /* LiftWatchBackupDocument.swift */,
+				00F260DAEABC321D11FFA181 /* LiftWatchIOS.entitlements */,
 				B7E46E8F8EB8366397562832 /* LiftWatchIOSApp.swift */,
 			);
 			path = iOS;
@@ -145,6 +182,7 @@
 			children = (
 				5EBE033EE27BC64C9876A9E7 /* iOS */,
 				3CD9795E8885C1820DA0F0AB /* Shared */,
+				D091E59598808574BADABEB5 /* Tests */,
 				BDC4D17C1998C29910534522 /* Watch */,
 				BFE8E20188C654C7828BC1C3 /* Products */,
 			);
@@ -153,6 +191,7 @@
 		BDC4D17C1998C29910534522 /* Watch */ = {
 			isa = PBXGroup;
 			children = (
+				EB0ABE34849D05FB233168E9 /* Assets.xcassets */,
 				02E3ACECF40BD317F9F6029E /* LiftWatchWatchApp.swift */,
 				5634CC03E9A1415C1207C819 /* WatchAddExerciseView.swift */,
 				E61C2EA4AF75388179748C0A /* WatchContentView.swift */,
@@ -163,11 +202,21 @@
 		BFE8E20188C654C7828BC1C3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				ACFAA66A59F0B64ADA0AD4A6 /* LiftWatchIOS.app */,
+				ACFAA66A59F0B64ADA0AD4A6 /* LiftWatch.app */,
+				F250F7EE406F4C1694D6057D /* LiftWatchTests.xctest */,
 				98530B59666E634BAEF8828F /* LiftWatchWatchApp.app */,
 				A617DDC7BE2C6042BEFAE2D4 /* LiftWatchWatchExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		D091E59598808574BADABEB5 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				6F1080A42315E8FEBAC20129 /* BackupSchemaTests.swift */,
+				1E693E68EFBDA12489B0815F /* ExerciseNamingTests.swift */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,6 +226,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9DB6DC3BF0B13FDCEF20B653 /* Build configuration list for PBXNativeTarget "LiftWatchWatchApp" */;
 			buildPhases = (
+				67D2B191EBA6C05DA81B9BFA /* Resources */,
 				502F420DFDCA43B02412F893 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
@@ -196,6 +246,7 @@
 			buildConfigurationList = F27438B6EF4EC0391563BA70 /* Build configuration list for PBXNativeTarget "LiftWatchIOS" */;
 			buildPhases = (
 				01470545F6A601D8D9F128E0 /* Sources */,
+				8D5A68579D1E5D6943D5AFBF /* Resources */,
 				851B57A50020D17DF6AD1700 /* Embed Watch Content */,
 			);
 			buildRules = (
@@ -207,8 +258,26 @@
 			packageProductDependencies = (
 			);
 			productName = LiftWatchIOS;
-			productReference = ACFAA66A59F0B64ADA0AD4A6 /* LiftWatchIOS.app */;
+			productReference = ACFAA66A59F0B64ADA0AD4A6 /* LiftWatch.app */;
 			productType = "com.apple.product-type.application";
+		};
+		DC1CB6519C6B978674B5BAAE /* LiftWatchTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3F051A34118B071D9CA6E075 /* Build configuration list for PBXNativeTarget "LiftWatchTests" */;
+			buildPhases = (
+				91A6EEC6E94E597D2C5C8F9F /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				30D3BE373C2EE2824DAC853C /* PBXTargetDependency */,
+			);
+			name = LiftWatchTests;
+			packageProductDependencies = (
+			);
+			productName = LiftWatchTests;
+			productReference = F250F7EE406F4C1694D6057D /* LiftWatchTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		F588CB738CF674968659B227 /* LiftWatchWatchExtension */ = {
 			isa = PBXNativeTarget;
@@ -246,16 +315,35 @@
 			);
 			mainGroup = 823A464B36FF59E17C2871F8;
 			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				CD196D4096B1A84F7E808979 /* LiftWatchIOS */,
+				DC1CB6519C6B978674B5BAAE /* LiftWatchTests */,
 				B29A76694206C9D88AF33B6D /* LiftWatchWatchApp */,
 				F588CB738CF674968659B227 /* LiftWatchWatchExtension */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		67D2B191EBA6C05DA81B9BFA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E05A2A179437605039BFD3C2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D5A68579D1E5D6943D5AFBF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A20F11B74C0363092DCC7FDE /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		01470545F6A601D8D9F128E0 /* Sources */ = {
@@ -264,8 +352,11 @@
 			files = (
 				3D264AEF652FCFB40711ACCF /* AddExerciseView.swift in Sources */,
 				A2FFD1EBE50EBE8512FEE7D2 /* AppSettings.swift in Sources */,
+				D5E3B6ABF0D36EB1656137EB /* CloudSyncManager.swift in Sources */,
+				B53380C68A3895C0B4D5D6EA /* DataBackup.swift in Sources */,
 				0332DD7BDFD6F3B485C0E77A /* ExerciseDefinition.swift in Sources */,
 				AB1A20AD33E5396E20F189CB /* ExerciseLog.swift in Sources */,
+				60EDE8127ADC0609C548E32B /* ExerciseNaming.swift in Sources */,
 				F25EF186AED0AF30C0A4695B /* ExerciseStore.swift in Sources */,
 				15BFA566D7F03068C61E895B /* IOSContentView.swift in Sources */,
 				DE790F52A135AE4F418B5216 /* IOSExerciseLibraryView.swift in Sources */,
@@ -273,7 +364,9 @@
 				EBE0E7FE218858FD64E55AD4 /* IOSSettingsView.swift in Sources */,
 				87AC1CF7F5C387EB9FD63911 /* IOSTabView.swift in Sources */,
 				EFD16ED81F606AD07C4CDDC8 /* IOSWorkoutSimilarityView.swift in Sources */,
+				705AC22AA035B4C51F312A22 /* LiftWatchBackupDocument.swift in Sources */,
 				118BE39E609EE6F92B8376AE /* LiftWatchIOSApp.swift in Sources */,
+				308F6F17BAD1C09103BE5934 /* ProgressiveOverloadEntry.swift in Sources */,
 				2E1579AB1582BBF49A6B6F68 /* SymbolLibrary.swift in Sources */,
 				D1C8EB03EEDB07A0EC5D610F /* WatchSyncManager.swift in Sources */,
 				997BD49AEF19702622E4D76F /* WeightliftingCatalog.swift in Sources */,
@@ -282,15 +375,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		91A6EEC6E94E597D2C5C8F9F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84237CBBAEDD116ED6C7809F /* BackupSchemaTests.swift in Sources */,
+				D907EA77C0D36106FAFF8CD3 /* ExerciseNamingTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A6E114FCADC9CD84B01133F7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				4D8C8C5316FD00C1D163443E /* AppSettings.swift in Sources */,
+				5D739B800706F2854B95543A /* DataBackup.swift in Sources */,
 				0B24FC302FA998AE9C4B9376 /* ExerciseDefinition.swift in Sources */,
 				3C74AFFBFC31FF8AABC99D24 /* ExerciseLog.swift in Sources */,
+				93918CB959E58E85F1E9FE27 /* ExerciseNaming.swift in Sources */,
 				F2BB3BF5FAFBBBAC2BDDEEEF /* ExerciseStore.swift in Sources */,
 				5980CF4D1C3B6187C057F55C /* LiftWatchWatchApp.swift in Sources */,
+				6049CF62239A9327399FE2FF /* ProgressiveOverloadEntry.swift in Sources */,
 				E5887CC44A57127A08C9304A /* SymbolLibrary.swift in Sources */,
 				3FD09429F87073ADC3C5F972 /* WatchAddExerciseView.swift in Sources */,
 				EA88D052BFAF1B518A4ADC2B /* WatchContentView.swift in Sources */,
@@ -304,6 +409,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		30D3BE373C2EE2824DAC853C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CD196D4096B1A84F7E808979 /* LiftWatchIOS */;
+			targetProxy = 4C4A76827BCB5D7BAFA0087A /* PBXContainerItemProxy */;
+		};
 		4B72C5C19E20D8DB341DB740 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F588CB738CF674968659B227 /* LiftWatchWatchExtension */;
@@ -367,7 +477,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = LiftWatch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
@@ -379,6 +489,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				DEVELOPMENT_TEAM = 2M7B57G9J9;
 				INFOPLIST_FILE = "Watch/WatchExtension-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -396,6 +507,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				DEVELOPMENT_TEAM = 2M7B57G9J9;
 				INFOPLIST_FILE = "Watch/WatchExtension-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -466,7 +578,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = LiftWatch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -478,13 +590,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = iOS/LiftWatchIOS.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 2M7B57G9J9;
 				INFOPLIST_FILE = iOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.liftwatch.ios;
+				PRODUCT_MODULE_NAME = LiftWatchIOS;
+				PRODUCT_NAME = LiftWatch;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -493,6 +609,8 @@
 		4E8ADE272ADDDD34F9B989DB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 2M7B57G9J9;
 				INFOPLIST_FILE = "Watch/WatchApp-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.liftwatch.ios.watchkitapp;
 				SDKROOT = watchos;
@@ -505,21 +623,46 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = iOS/LiftWatchIOS.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 2M7B57G9J9;
 				INFOPLIST_FILE = iOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.liftwatch.ios;
+				PRODUCT_MODULE_NAME = LiftWatchIOS;
+				PRODUCT_NAME = LiftWatch;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
+		A9EA67F4E72B687C640B3833 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.liftwatch.ios.tests;
+				PRODUCT_MODULE_NAME = LiftWatchTests;
+				PRODUCT_NAME = LiftWatchTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LiftWatch.app/LiftWatch";
+			};
+			name = Debug;
+		};
 		C180F59F0F403B22662B61EB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 2M7B57G9J9;
 				INFOPLIST_FILE = "Watch/WatchApp-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.liftwatch.ios.watchkitapp;
 				SDKROOT = watchos;
@@ -527,6 +670,25 @@
 				TARGETED_DEVICE_FAMILY = 4;
 			};
 			name = Debug;
+		};
+		EECDC81B9BC43BC008AE1050 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.liftwatch.ios.tests;
+				PRODUCT_MODULE_NAME = LiftWatchTests;
+				PRODUCT_NAME = LiftWatchTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LiftWatch.app/LiftWatch";
+			};
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
@@ -545,6 +707,15 @@
 			buildConfigurations = (
 				28C636DD226BBC4B66C1651A /* Debug */,
 				24A6D7DC618F1696D591C069 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		3F051A34118B071D9CA6E075 /* Build configuration list for PBXNativeTarget "LiftWatchTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A9EA67F4E72B687C640B3833 /* Debug */,
+				EECDC81B9BC43BC008AE1050 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

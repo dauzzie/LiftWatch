@@ -1,6 +1,14 @@
 import Foundation
 import WatchConnectivity
 
+enum SyncLevel {
+    case idle
+    case syncing
+    case success
+    case warning
+    case error
+}
+
 @MainActor
 final class WatchSyncManager: NSObject, ObservableObject {
     private enum PayloadKey {
@@ -10,6 +18,9 @@ final class WatchSyncManager: NSObject, ObservableObject {
     }
 
     @Published private(set) var syncStatus = "Idle"
+    @Published private(set) var syncDetail = ""
+    @Published private(set) var syncLevel: SyncLevel = .idle
+    @Published private(set) var lastSuccessfulSyncAt: Date?
 
     private let session: WCSession? = WCSession.isSupported() ? WCSession.default : nil
     private weak var store: ExerciseStore?
@@ -17,22 +28,26 @@ final class WatchSyncManager: NSObject, ObservableObject {
     private let decoder = JSONDecoder()
 
     private var pendingPayload: [String: Any]?
+    private var isRequestInFlight = false
+    private var lastActivationSyncAttemptAt: Date?
 
     func start(store: ExerciseStore) {
         self.store = store
 
         guard let session else {
-            syncStatus = "WatchConnectivity unavailable"
+            setStatus("WatchConnectivity unavailable", detail: "Device does not support watch sync.", level: .warning)
             return
         }
 
         session.delegate = self
         session.activate()
+        setStatus("Connecting...", detail: "Initializing watch session.", level: .syncing)
     }
 
     func appDidBecomeActive() {
-        requestPeerLogs()
-        flushPendingSync()
+        guard shouldAttemptForegroundSync else { return }
+        lastActivationSyncAttemptAt = .now
+        syncBidirectional()
     }
 
     func send(log: ExerciseLog) {
@@ -49,9 +64,14 @@ final class WatchSyncManager: NSObject, ObservableObject {
         requestPeerLogs()
     }
 
+    private var shouldAttemptForegroundSync: Bool {
+        guard let last = lastActivationSyncAttemptAt else { return true }
+        return Date().timeIntervalSince(last) > 2
+    }
+
     private func send(logs: [ExerciseLog], isSnapshot: Bool) {
         guard let data = try? encoder.encode(logs) else {
-            syncStatus = "Sync encode failed"
+            setStatus("Sync encode failed", detail: "Could not encode logs.", level: .error)
             return
         }
 
@@ -63,78 +83,95 @@ final class WatchSyncManager: NSObject, ObservableObject {
         guard let session, let payload = pendingPayload else { return }
 
         guard isConnectionReady(session) else {
-            syncStatus = unavailableMessage(for: session)
+            setStatus(unavailableTitle(for: session), detail: unavailableDetail(for: session), level: .warning)
             return
         }
 
         guard session.activationState == .activated else {
-            syncStatus = "Connecting..."
+            setStatus("Connecting...", detail: "Waiting for watch session activation.", level: .syncing)
             session.activate()
             return
         }
 
-        syncStatus = "Syncing..."
+        setStatus("Syncing...", detail: "Sending local changes.", level: .syncing)
 
         if session.isReachable {
-            session.sendMessage(payload, replyHandler: nil) { [weak self] _ in
+            session.sendMessage(payload, replyHandler: nil) { [weak self] error in
                 Task { @MainActor in
                     self?.deliverFallback(payload)
+                    self?.setStatus("Sync queued", detail: error.localizedDescription, level: .warning)
                 }
             }
             pendingPayload = nil
-            syncStatus = "Synced"
+            lastSuccessfulSyncAt = .now
+            setStatus("Synced", detail: "Local changes delivered.", level: .success)
             return
         }
 
         deliverFallback(payload)
         pendingPayload = nil
-        syncStatus = "Queued sync"
+        setStatus("Sync queued", detail: "Watch currently unreachable. Will deliver in background.", level: .warning)
     }
 
     private func requestPeerLogs() {
         guard let session else { return }
+        guard !isRequestInFlight else { return }
 
         guard isConnectionReady(session) else {
-            syncStatus = unavailableMessage(for: session)
+            setStatus(unavailableTitle(for: session), detail: unavailableDetail(for: session), level: .warning)
             return
         }
 
         let request: [String: Any] = [PayloadKey.syncRequest: true]
 
         guard session.activationState == .activated else {
-            syncStatus = "Connecting..."
+            setStatus("Connecting...", detail: "Waiting for watch session activation.", level: .syncing)
             session.activate()
             session.transferUserInfo(request)
             return
         }
 
+        isRequestInFlight = true
+
         if session.isReachable {
-            syncStatus = "Requesting peer logs..."
+            setStatus("Requesting peer logs...", detail: "Fetching latest logs from paired device.", level: .syncing)
             session.sendMessage(request) { [weak self] reply in
                 Task { @MainActor in
+                    self?.isRequestInFlight = false
                     self?.mergeLogs(from: reply)
-                    self?.syncStatus = "Synced"
                 }
-            } errorHandler: { [weak self] _ in
+            } errorHandler: { [weak self] error in
                 session.transferUserInfo(request)
                 Task { @MainActor in
-                    self?.syncStatus = "Queued sync request"
+                    self?.isRequestInFlight = false
+                    self?.setStatus("Sync request queued", detail: error.localizedDescription, level: .warning)
                 }
             }
         } else {
             session.transferUserInfo(request)
-            syncStatus = "Queued sync request"
+            isRequestInFlight = false
+            setStatus("Sync request queued", detail: "Device unreachable, queued via background transfer.", level: .warning)
         }
     }
 
     private func deliverFallback(_ payload: [String: Any]) {
-        try? session?.updateApplicationContext(payload)
-        session?.transferUserInfo(payload)
+        guard let session else { return }
+
+        do {
+            try session.updateApplicationContext(payload)
+        } catch {
+            setStatus("Context sync failed", detail: error.localizedDescription, level: .warning)
+        }
+
+        session.transferUserInfo(payload)
     }
 
     private func mergeLogs(from payload: [String: Any]) {
         guard let data = payload[PayloadKey.logs] as? Data else { return }
-        guard let incoming = try? decoder.decode([ExerciseLog].self, from: data) else { return }
+        guard let incoming = try? decoder.decode([ExerciseLog].self, from: data) else {
+            setStatus("Sync decode failed", detail: "Received invalid payload.", level: .error)
+            return
+        }
         let isSnapshot = payload[PayloadKey.isSnapshot] as? Bool ?? false
 
         if isSnapshot {
@@ -142,7 +179,9 @@ final class WatchSyncManager: NSObject, ObservableObject {
         } else {
             store?.addAll(incoming)
         }
-        syncStatus = "Synced"
+
+        lastSuccessfulSyncAt = .now
+        setStatus("Synced", detail: "Latest logs merged.", level: .success)
     }
 
     private func payloadForCurrentLogs() -> [String: Any]? {
@@ -166,21 +205,32 @@ final class WatchSyncManager: NSObject, ObservableObject {
 #endif
     }
 
-    private func unavailableMessage(for session: WCSession) -> String {
+    private func unavailableTitle(for session: WCSession) -> String {
 #if os(iOS)
-        if !session.isPaired {
-            return "Watch not paired"
-        }
-        if !session.isWatchAppInstalled {
-            return "Watch app not installed"
-        }
+        if !session.isPaired { return "Watch not paired" }
+        if !session.isWatchAppInstalled { return "Watch app not installed" }
         return "Watch unavailable"
 #else
-        if !session.isCompanionAppInstalled {
-            return "iPhone app not installed"
-        }
+        if !session.isCompanionAppInstalled { return "iPhone app not installed" }
         return "iPhone unavailable"
 #endif
+    }
+
+    private func unavailableDetail(for session: WCSession) -> String {
+#if os(iOS)
+        if !session.isPaired { return "Pair an Apple Watch with this iPhone to enable sync." }
+        if !session.isWatchAppInstalled { return "Install LiftWatch on the paired Watch." }
+        return "Open both iPhone and Watch apps at least once."
+#else
+        if !session.isCompanionAppInstalled { return "Install LiftWatch on paired iPhone." }
+        return "Open the iPhone app to re-establish sync."
+#endif
+    }
+
+    private func setStatus(_ status: String, detail: String, level: SyncLevel) {
+        syncStatus = status
+        syncDetail = detail
+        syncLevel = level
     }
 }
 
@@ -192,19 +242,37 @@ extension WatchSyncManager: WCSessionDelegate {
     ) {
         Task { @MainActor in
             if let error {
-                syncStatus = "Sync error: \(error.localizedDescription)"
+                setStatus("Sync error", detail: error.localizedDescription, level: .error)
+            } else {
+                setStatus("Connected", detail: "Watch session activated.", level: .success)
             }
             appDidBecomeActive()
         }
     }
 
 #if os(iOS)
-    nonisolated func sessionDidBecomeInactive(_ session: WCSession) {}
+    nonisolated func sessionDidBecomeInactive(_ session: WCSession) {
+        Task { @MainActor in
+            setStatus("Sync inactive", detail: "Session became inactive.", level: .warning)
+        }
+    }
 
     nonisolated func sessionDidDeactivate(_ session: WCSession) {
         session.activate()
         Task { @MainActor in
+            setStatus("Reconnecting...", detail: "Watch session deactivated, reactivating.", level: .syncing)
             appDidBecomeActive()
+        }
+    }
+
+    nonisolated func sessionWatchStateDidChange(_ session: WCSession) {
+        Task { @MainActor in
+            if isConnectionReady(session) {
+                setStatus("Watch connected", detail: "Sync ready.", level: .success)
+                appDidBecomeActive()
+            } else {
+                setStatus(unavailableTitle(for: session), detail: unavailableDetail(for: session), level: .warning)
+            }
         }
     }
 #endif
@@ -254,9 +322,25 @@ extension WatchSyncManager: WCSessionDelegate {
         }
     }
 
+    nonisolated func session(_ session: WCSession, didFinish userInfoTransfer: WCSessionUserInfoTransfer, error: Error?) {
+        Task { @MainActor in
+            if let error {
+                setStatus("Background sync failed", detail: error.localizedDescription, level: .warning)
+            } else {
+                lastSuccessfulSyncAt = .now
+                setStatus("Synced", detail: "Background transfer completed.", level: .success)
+            }
+        }
+    }
+
     nonisolated func sessionReachabilityDidChange(_ session: WCSession) {
         Task { @MainActor in
-            appDidBecomeActive()
+            if session.isReachable {
+                setStatus("Reachable", detail: "Live sync channel available.", level: .success)
+            } else {
+                setStatus("Unreachable", detail: "Falling back to background sync.", level: .warning)
+            }
+            flushPendingSync()
         }
     }
 }

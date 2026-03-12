@@ -4,6 +4,7 @@ struct IOSContentView: View {
     @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var store: ExerciseStore
     @EnvironmentObject private var sync: WatchSyncManager
+    @EnvironmentObject private var cloud: CloudSyncManager
     @State private var isPresentingAdd = false
 
     var body: some View {
@@ -88,17 +89,44 @@ struct IOSContentView: View {
     }
 
     private var syncStatusCard: some View {
-        HStack(spacing: 8) {
-            Image(systemName: "arrow.triangle.2.circlepath.circle.fill")
-                .foregroundStyle(.blue)
-            Text(sync.syncStatus)
-                .font(.caption)
-                .foregroundStyle(.secondary)
-            Spacer()
+        VStack(alignment: .leading, spacing: 10) {
+            syncRow(
+                title: "Watch",
+                status: sync.syncStatus,
+                detail: sync.syncDetail,
+                color: syncColor,
+                icon: "applewatch"
+            )
+            syncRow(
+                title: "Cloud",
+                status: cloud.syncStatus,
+                detail: cloud.syncDetail,
+                color: cloudColor,
+                icon: "icloud.fill"
+            )
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 10)
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+    }
+
+    private func syncRow(title: String, status: String, detail: String, color: Color, icon: String) -> some View {
+        VStack(alignment: .leading, spacing: 3) {
+            HStack(spacing: 8) {
+                Image(systemName: icon)
+                    .foregroundStyle(color)
+                Text("\(title): \(status)")
+                    .font(.caption)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(color)
+                Spacer()
+            }
+            if !detail.isEmpty {
+                Text(detail)
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+            }
+        }
     }
 
     private var emptyStateCard: some View {
@@ -130,7 +158,7 @@ struct IOSContentView: View {
             .frame(width: 50, height: 50)
 
             VStack(alignment: .leading, spacing: 4) {
-                Text(log.name)
+                Text(ExerciseNaming.displayName(name: log.name, symbol: log.symbol, category: log.category))
                     .font(.headline)
                     .lineLimit(2)
                     .multilineTextAlignment(.leading)
@@ -227,10 +255,31 @@ struct IOSContentView: View {
     private var cardStroke: Color {
         colorScheme == .dark ? Color.white.opacity(0.18) : Color.white.opacity(0.75)
     }
+
+    private var syncColor: Color {
+        switch sync.syncLevel {
+        case .idle: return .secondary
+        case .syncing: return .orange
+        case .success: return .green
+        case .warning: return .yellow
+        case .error: return .red
+        }
+    }
+
+    private var cloudColor: Color {
+        switch cloud.syncLevel {
+        case .idle: return .secondary
+        case .syncing: return .orange
+        case .success: return .green
+        case .warning: return .yellow
+        case .error: return .red
+        }
+    }
 }
 
 #Preview {
     IOSContentView()
         .environmentObject(ExerciseStore())
         .environmentObject(WatchSyncManager())
+        .environmentObject(CloudSyncManager())
 }

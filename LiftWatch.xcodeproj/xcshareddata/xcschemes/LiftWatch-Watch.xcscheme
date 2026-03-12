@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B29A76694206C9D88AF33B6D"
-               BuildableName = "LiftWatch.app"
+               BuildableName = "LiftWatchWatchApp.app"
                BlueprintName = "LiftWatchWatchApp"
                ReferencedContainer = "container:LiftWatch.xcodeproj">
             </BuildableReference>
@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F588CB738CF674968659B227"
-               BuildableName = "LiftWatch.appex"
+               BuildableName = "LiftWatchWatchExtension.appex"
                BlueprintName = "LiftWatchWatchExtension"
                ReferencedContainer = "container:LiftWatch.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B29A76694206C9D88AF33B6D"
-            BuildableName = "LiftWatch.app"
+            BuildableName = "LiftWatchWatchApp.app"
             BlueprintName = "LiftWatchWatchApp"
             ReferencedContainer = "container:LiftWatch.xcodeproj">
          </BuildableReference>
@@ -68,7 +68,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B29A76694206C9D88AF33B6D"
-            BuildableName = "LiftWatch.app"
+            BuildableName = "LiftWatchWatchApp.app"
             BlueprintName = "LiftWatchWatchApp"
             ReferencedContainer = "container:LiftWatch.xcodeproj">
          </BuildableReference>
@@ -85,7 +85,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B29A76694206C9D88AF33B6D"
-            BuildableName = "LiftWatch.app"
+            BuildableName = "LiftWatchWatchApp.app"
             BlueprintName = "LiftWatchWatchApp"
             ReferencedContainer = "container:LiftWatch.xcodeproj">
          </BuildableReference>

@@ -25,4 +25,5 @@ struct IOSTabView: View {
     IOSTabView()
         .environmentObject(ExerciseStore())
         .environmentObject(WatchSyncManager())
+        .environmentObject(CloudSyncManager())
 }

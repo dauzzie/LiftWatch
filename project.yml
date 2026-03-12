@@ -121,3 +121,16 @@ schemes:
     run:
       config: Debug
       executable: LiftWatchWatchApp
+
+  LiftWatch-CI:
+    build:
+      targets:
+        LiftWatchIOS: all
+        LiftWatchTests: all
+    test:
+      config: Debug
+      targets:
+        - LiftWatchTests
+    run:
+      config: Debug
+      executable: LiftWatchIOS

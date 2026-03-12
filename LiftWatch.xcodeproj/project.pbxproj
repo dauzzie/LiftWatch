@@ -131,7 +131,7 @@
 		E99C4BDC8B0D624B0B2119A8 /* AddExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseView.swift; sourceTree = "<group>"; };
 		EB0ABE34849D05FB233168E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EE2167A086B35451C566B80D /* ExerciseStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseStore.swift; sourceTree = "<group>"; };
-		F250F7EE406F4C1694D6057D /* LiftWatchTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = LiftWatchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F250F7EE406F4C1694D6057D /* LiftWatchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiftWatchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7505FA19E83B49701B854C7 /* IOSWorkoutSimilarityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSWorkoutSimilarityView.swift; sourceTree = "<group>"; };
 		F7EDDE2332B66E1395BCE326 /* WatchSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSyncManager.swift; sourceTree = "<group>"; };
 		FC9C27A636438150316D1547 /* IOSExerciseLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSExerciseLibraryView.swift; sourceTree = "<group>"; };
@@ -643,6 +643,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 2M7B57G9J9;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -675,6 +676,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 2M7B57G9J9;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

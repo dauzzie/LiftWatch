@@ -1,5 +1,5 @@
 import XCTest
-@testable import LiftWatchIOS
+@testable import LiftWatchIOSç
 
 final class BackupSchemaTests: XCTestCase {
     func testBackupEnvelopeDefaultSchemaVersion() {

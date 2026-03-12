@@ -31,7 +31,11 @@ targets:
         TARGETED_DEVICE_FAMILY: 1
         PRODUCT_NAME: LiftWatch
         PRODUCT_MODULE_NAME: LiftWatchIOS
+        DEFINES_MODULE: YES
         CODE_SIGN_ENTITLEMENTS: iOS/LiftWatchIOS.entitlements
+      configs:
+        Debug:
+          ENABLE_TESTABILITY: YES
     dependencies:
       - target: LiftWatchWatchApp
         embed: true

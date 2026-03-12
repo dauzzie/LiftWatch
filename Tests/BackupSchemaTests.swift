@@ -1,5 +1,11 @@
 import XCTest
+#if canImport(LiftWatchIOS)
 @testable import LiftWatchIOS
+#elseif canImport(LiftWatch)
+@testable import LiftWatch
+#else
+#error("Unable to import app module for tests.")
+#endif
 
 final class BackupSchemaTests: XCTestCase {
     func testBackupEnvelopeDefaultSchemaVersion() {

@@ -93,7 +93,6 @@ schemes:
         LiftWatchIOS: all
         LiftWatchWatchApp: all
         LiftWatchWatchExtension: all
-        LiftWatchTests: all
     test:
       config: Debug
       targets:
@@ -108,7 +107,6 @@ schemes:
         LiftWatchIOS: all
         LiftWatchWatchApp: all
         LiftWatchWatchExtension: all
-        LiftWatchTests: all
     test:
       config: Debug
       targets:
@@ -130,7 +128,6 @@ schemes:
     build:
       targets:
         LiftWatchIOS: all
-        LiftWatchTests: all
     test:
       config: Debug
       targets:

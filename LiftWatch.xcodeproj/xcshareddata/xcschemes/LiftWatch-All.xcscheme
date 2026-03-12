@@ -28,20 +28,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DC1CB6519C6B978674B5BAAE"
-               BuildableName = "LiftWatchTests.xctest"
-               BlueprintName = "LiftWatchTests"
-               ReferencedContainer = "container:LiftWatch.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "B29A76694206C9D88AF33B6D"
                BuildableName = "LiftWatchWatchApp.app"
                BlueprintName = "LiftWatchWatchApp"

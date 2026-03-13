@@ -24,7 +24,7 @@ struct LiftWatchIOSApp: App {
                 .onChange(of: scenePhase) { _, newPhase in
                     if newPhase == .active {
                         store.appDidBecomeActive()
-                        sync.sendAll()
+                        sync.appDidBecomeActive()
                         if !isRunningTests {
                             cloud.appDidBecomeActive()
                         }

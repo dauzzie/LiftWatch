@@ -26,6 +26,34 @@ struct IOSSettingsView: View {
                     Text("Workouts are active from this time to the next day at the same time. At reset, current logs move to history and the active list clears.")
                         .font(.caption)
                         .foregroundStyle(.secondary)
+                        .accessibilityLabel("Workouts are active from the selected reset time to the same time the next day. At reset, active logs move to history.")
+                }
+
+                Section("Weight Preferences") {
+                    Picker("Unit", selection: Binding(
+                        get: { store.settings.preferredWeightUnit },
+                        set: { store.updatePreferredWeightUnit(to: $0) }
+                    )) {
+                        ForEach(WeightUnit.allCases) { unit in
+                            Text(unit.title).tag(unit)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+
+                    Stepper(
+                        value: Binding(
+                            get: { displayWeightLimit },
+                            set: { store.updateMaxWeightLimit($0, in: store.settings.preferredWeightUnit) }
+                        ),
+                        in: minWeightLimit...maxWeightLimit,
+                        step: stepSize
+                    ) {
+                        Text("Max weight: \(displayWeightLimit.formatted(.number.precision(.fractionLength(0...1)))) \(store.settings.preferredWeightUnit.symbol)")
+                    }
+
+                    Text("This cap is used by workout weight sliders on iPhone and Watch.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
                 }
 
                 Section("Library") {
@@ -45,6 +73,9 @@ struct IOSSettingsView: View {
                             .fontWeight(.semibold)
                             .foregroundStyle(cloudColor)
                     }
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel("Cloud sync status")
+                    .accessibilityValue(cloud.syncStatus)
 
                     if !cloud.syncDetail.isEmpty {
                         Text(cloud.syncDetail)
@@ -55,6 +86,7 @@ struct IOSSettingsView: View {
                     Button("Sync Now") {
                         cloud.manualSync()
                     }
+                    .accessibilityHint("Manually synchronizes workouts with iCloud.")
                 }
 
                 Section("Backup") {
@@ -75,6 +107,8 @@ struct IOSSettingsView: View {
                         Text(backupMessage)
                             .font(.caption)
                             .foregroundStyle(.secondary)
+                            .accessibilityLabel("Backup status")
+                            .accessibilityValue(backupMessage)
                     }
                 }
             }
@@ -126,15 +160,23 @@ struct IOSSettingsView: View {
         return (components.hour ?? 0) * 60 + (components.minute ?? 0)
     }
 
-    private var cloudColor: Color {
-        switch cloud.syncLevel {
-        case .idle: return .secondary
-        case .syncing: return .orange
-        case .success: return .green
-        case .warning: return .yellow
-        case .error: return .red
-        }
+    private var displayWeightLimit: Double {
+        store.settings.preferredWeightUnit.fromKilograms(store.settings.normalizedMaxWeightKilograms)
     }
+
+    private var minWeightLimit: Double {
+        store.settings.preferredWeightUnit.fromKilograms(AppSettings.minMaxWeightKilograms)
+    }
+
+    private var maxWeightLimit: Double {
+        store.settings.preferredWeightUnit.fromKilograms(AppSettings.hardMaxWeightKilograms)
+    }
+
+    private var stepSize: Double {
+        store.settings.preferredWeightUnit == .pounds ? 5 : 2.5
+    }
+
+    private var cloudColor: Color { cloud.syncLevel.tintColor }
 }
 
 #Preview {

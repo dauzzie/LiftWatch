@@ -9,6 +9,10 @@ struct IOSExerciseLibraryView: View {
     @State private var symbol = "hare.fill"
     @State private var muscles = ""
 
+    private var availableSymbols: [String] {
+        store.availableCustomSymbols()
+    }
+
     var body: some View {
         Form {
             Section("Add Custom Exercise") {
@@ -21,7 +25,7 @@ struct IOSExerciseLibraryView: View {
                 if category == .weightlifting {
                     Picker("Category", selection: $weightCategory) {
                         ForEach(WeightliftingCategory.allCases) { item in
-                            Text(item.title).tag(item)
+                            Label(item.title, systemImage: item.symbol).tag(item)
                         }
                     }
                 }
@@ -33,7 +37,7 @@ struct IOSExerciseLibraryView: View {
                 }
 
                 Picker("Symbol", selection: $symbol) {
-                    ForEach(store.availableCustomSymbols(), id: \.self) { item in
+                    ForEach(availableSymbols, id: \.self) { item in
                         Label(item, systemImage: item).tag(item)
                     }
                 }
@@ -54,9 +58,10 @@ struct IOSExerciseLibraryView: View {
 
                     name = ""
                     muscles = ""
-                    symbol = store.availableCustomSymbols().first ?? "star.fill"
+                    symbol = availableSymbols.first ?? "star.fill"
                 }
-                .disabled(name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || store.availableCustomSymbols().isEmpty)
+                .disabled(name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || availableSymbols.isEmpty)
+                .accessibilityHint("Adds the custom exercise to your library.")
             }
 
             Section("Custom Exercises") {
@@ -72,6 +77,7 @@ struct IOSExerciseLibraryView: View {
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
+                        .accessibilityElement(children: .combine)
                         .swipeActions {
                             Button(role: .destructive) {
                                 store.removeCustomExercise(id: exercise.id)
@@ -84,7 +90,7 @@ struct IOSExerciseLibraryView: View {
             }
 
             Section("Unused Symbol Library") {
-                let available = store.availableCustomSymbols()
+                let available = availableSymbols
                 if available.isEmpty {
                     Text("All symbols in this library are used.")
                         .foregroundStyle(.secondary)
@@ -95,6 +101,7 @@ struct IOSExerciseLibraryView: View {
                                 Image(systemName: item)
                                     .frame(width: 32, height: 32)
                                     .background(Color.secondary.opacity(0.12), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                                    .accessibilityLabel(item)
                             }
                         }
                         .padding(.vertical, 4)
@@ -104,7 +111,7 @@ struct IOSExerciseLibraryView: View {
         }
         .navigationTitle("Exercise Library")
         .onAppear {
-            if let first = store.availableCustomSymbols().first {
+            if let first = availableSymbols.first {
                 symbol = first
             }
         }
@@ -114,7 +121,10 @@ struct IOSExerciseLibraryView: View {
         if exercise.category == .cardio {
             return "Cardio"
         }
-        return exercise.weightliftingCategory?.title ?? "Weightlifting"
+        if let category = exercise.weightliftingCategory {
+            return "\(category.title)"
+        }
+        return "Weightlifting"
     }
 }
 

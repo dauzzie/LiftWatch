@@ -29,6 +29,9 @@ struct IOSWorkoutSimilarityView: View {
                     tableLine(title: "Similar", value: row.similarText)
                 }
                 .padding(.vertical, 6)
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(row.exercise.name)
+                .accessibilityValue("Muscles: \(musclesText(for: row.exercise)). Similar: \(row.similarText)")
             }
         }
         .navigationTitle("Workout Table")

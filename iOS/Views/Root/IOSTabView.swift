@@ -13,6 +13,11 @@ struct IOSTabView: View {
                     Label("History", systemImage: "chart.bar.fill")
                 }
 
+            IOSPlanView()
+                .tabItem {
+                    Label("Plan", systemImage: "calendar.badge.clock")
+                }
+
             IOSSettingsView()
                 .tabItem {
                     Label("Settings", systemImage: "gearshape.fill")

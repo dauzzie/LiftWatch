@@ -24,6 +24,15 @@ enum WeightliftingCategory: String, Codable, CaseIterable, Hashable, Identifiabl
         case .abs: return "Abs"
         }
     }
+
+    var symbol: String {
+        switch self {
+        case .push: return "arrow.up.circle.fill"
+        case .pull: return "arrow.down.circle.fill"
+        case .legs: return "figure.walk.circle.fill"
+        case .abs: return "figure.core.training"
+        }
+    }
 }
 
 enum WeightliftingCatalog {

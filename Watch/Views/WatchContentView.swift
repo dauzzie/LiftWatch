@@ -13,6 +13,7 @@ struct WatchContentView: View {
                 } label: {
                     Label("Log Workout", systemImage: "plus.circle.fill")
                 }
+                .accessibilityHint("Opens the new workout form.")
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(sync.syncStatus)
@@ -25,6 +26,10 @@ struct WatchContentView: View {
                             .foregroundStyle(.secondary)
                     }
                 }
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel("Sync status")
+                .accessibilityValue(sync.syncStatus)
+                .accessibilityHint(sync.syncDetail)
 
                 ForEach(store.logs) { log in
                     HStack(spacing: 8) {
@@ -50,7 +55,10 @@ struct WatchContentView: View {
                                 .foregroundStyle(.red)
                         }
                         .buttonStyle(.plain)
+                        .accessibilityLabel("Delete workout")
+                        .accessibilityHint("Removes this workout entry.")
                     }
+                    .accessibilityElement(children: .combine)
                 }
             }
             .navigationTitle("Workouts")
@@ -61,6 +69,8 @@ struct WatchContentView: View {
                     } label: {
                         Image(systemName: "arrow.triangle.2.circlepath")
                     }
+                    .accessibilityLabel("Sync workouts")
+                    .accessibilityHint("Synchronizes workouts with iPhone.")
                 }
             }
             .sheet(isPresented: $isPresentingAdd) {
@@ -73,30 +83,14 @@ struct WatchContentView: View {
     }
 
     private func summary(for log: ExerciseLog) -> String {
-        switch log.category {
-        case .weightlifting:
-            let setsText = "\(log.sets ?? 0)x\(log.reps ?? 0)"
-            let weightText = (log.weight ?? 0).formatted(.number.precision(.fractionLength(0...1))) + "lb"
-            let group = log.weightliftingCategory?.title ?? "Lift"
-            return "\(group) • \(setsText) @ \(weightText)"
-        case .cardio:
-            let minutesText = "\(log.minutes ?? 0)m"
-            if let pace = log.pace, !pace.isEmpty {
-                return "\(minutesText) • Avg \(pace)"
-            }
-            return minutesText
-        }
+        ExerciseLogSummaryFormatter.summary(
+            for: log,
+            preferredUnit: store.settings.preferredWeightUnit,
+            style: .watch
+        )
     }
 
-    private var syncColor: Color {
-        switch sync.syncLevel {
-        case .idle: return .secondary
-        case .syncing: return .orange
-        case .success: return .green
-        case .warning: return .yellow
-        case .error: return .red
-        }
-    }
+    private var syncColor: Color { sync.syncLevel.tintColor }
 }
 
 #Preview {

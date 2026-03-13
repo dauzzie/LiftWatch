@@ -22,20 +22,26 @@ struct IOSHistoryView: View {
     @State private var selectedExercise = ""
     @State private var selectedMetric: ProgressiveMetric = .maxWeight
 
+    private var progressivePoints: [ProgressiveOverloadPoint] {
+        store.progressiveOverloadPoints()
+    }
+
+    private var exerciseNames: [String] {
+        Array(Set(progressivePoints.map(\.exerciseName))).sorted()
+    }
+
     var body: some View {
         NavigationStack {
             ZStack {
                 LinearGradient(
-                    colors: colorScheme == .dark
-                        ? [Color(red: 0.08, green: 0.10, blue: 0.14), Color(red: 0.06, green: 0.12, blue: 0.20)]
-                        : [Color(red: 0.95, green: 0.98, blue: 1.0), Color(red: 0.90, green: 0.95, blue: 1.0)],
+                    colors: LiftWatchTheme.backgroundGradient(for: colorScheme),
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
                 )
                 .ignoresSafeArea()
 
                 ScrollView {
-                    VStack(spacing: 14) {
+                    LazyVStack(spacing: 14) {
                         Picker("Range", selection: $range) {
                             ForEach(HistoryRange.allCases) { item in
                                 Text(item.title).tag(item)
@@ -47,7 +53,7 @@ struct IOSHistoryView: View {
                         previousSessionCard
                         progressiveOverloadCard
 
-                        VStack(spacing: 10) {
+                        LazyVStack(spacing: 10) {
                             ForEach(store.historyPoints(for: range)) { point in
                                 HStack {
                                     VStack(alignment: .leading, spacing: 4) {
@@ -60,7 +66,10 @@ struct IOSHistoryView: View {
                                     Spacer()
                                 }
                                 .padding(12)
-                                .background(cardBackground, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                                .liftWatchCardStyle(colorScheme: colorScheme, cornerRadius: 14)
+                                .accessibilityElement(children: .ignore)
+                                .accessibilityLabel(point.label)
+                                .accessibilityValue("\(point.workoutCount) workouts, \(point.totalSets) sets, \(point.totalMinutes) minutes")
                             }
                         }
                         .padding(.horizontal, 16)
@@ -91,6 +100,7 @@ struct IOSHistoryView: View {
                         Spacer()
                     }
                     .font(.subheadline)
+                    .accessibilityElement(children: .combine)
                 }
 
                 if previous.logs.count > 5 {
@@ -106,8 +116,9 @@ struct IOSHistoryView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(14)
-        .background(cardBackground, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .liftWatchCardStyle(colorScheme: colorScheme, cornerRadius: 16)
         .padding(.horizontal, 16)
+        .accessibilityElement(children: .contain)
     }
 
     private var progressiveOverloadCard: some View {
@@ -115,8 +126,7 @@ struct IOSHistoryView: View {
             Text("Progressive Overload")
                 .font(.headline)
 
-            let points = store.progressiveOverloadPoints()
-            let exerciseNames = Array(Set(points.map(\.exerciseName))).sorted()
+            let points = progressivePoints
 
             if points.isEmpty {
                 Text("No weightlifting progression data yet.")
@@ -171,6 +181,8 @@ struct IOSHistoryView: View {
                         .foregroundStyle(.orange)
                     }
                     .frame(height: 180)
+                    .accessibilityLabel("\(selectedExercise) progression chart")
+                    .accessibilityValue("Showing \(selected.count) workouts by \(selectedMetric.title.lowercased())")
                     .chartXAxis {
                         AxisMarks(values: .automatic(desiredCount: max(2, selected.count))) { _ in
                             AxisGridLine()
@@ -191,12 +203,8 @@ struct IOSHistoryView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(14)
-        .background(cardBackground, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .liftWatchCardStyle(colorScheme: colorScheme, cornerRadius: 16)
         .padding(.horizontal, 16)
-    }
-
-    private var cardBackground: Color {
-        colorScheme == .dark ? Color.white.opacity(0.08) : Color.white.opacity(0.9)
     }
 
     private func dateText(_ date: Date) -> String {
@@ -208,18 +216,24 @@ struct IOSHistoryView: View {
     }
 
     private var yTitle: String {
-        selectedMetric == .maxWeight ? "Max Weight (lb)" : "Volume"
+        let unit = store.settings.preferredWeightUnit.symbol
+        return selectedMetric == .maxWeight ? "Max Weight (\(unit))" : "Volume (\(unit)-reps)"
     }
 
     private func yValue(for point: ProgressiveOverloadPoint) -> Double {
-        selectedMetric == .maxWeight ? point.maxWeight : point.volume
+        selectedMetric == .maxWeight
+            ? store.settings.preferredWeightUnit.fromKilograms(point.maxWeight)
+            : store.settings.preferredWeightUnit.fromKilograms(point.volume)
     }
 
     private func formattedValue(for point: ProgressiveOverloadPoint) -> String {
+        let unit = store.settings.preferredWeightUnit.symbol
         if selectedMetric == .maxWeight {
-            return point.maxWeight.formatted(.number.precision(.fractionLength(0...1))) + " lb"
+            let value = store.settings.preferredWeightUnit.fromKilograms(point.maxWeight)
+            return value.formatted(.number.precision(.fractionLength(0...1))) + " " + unit
         }
-        return point.volume.formatted(.number.precision(.fractionLength(0...0)))
+        let value = store.settings.preferredWeightUnit.fromKilograms(point.volume)
+        return value.formatted(.number.precision(.fractionLength(0...0))) + " " + unit + "-reps"
     }
 }
 

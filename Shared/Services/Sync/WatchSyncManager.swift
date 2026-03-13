@@ -30,6 +30,7 @@ final class WatchSyncManager: NSObject, ObservableObject {
     private var pendingPayload: [String: Any]?
     private var isRequestInFlight = false
     private var lastActivationSyncAttemptAt: Date?
+    private var deferredSnapshotTask: Task<Void, Never>?
 
     func start(store: ExerciseStore) {
         self.store = store
@@ -62,6 +63,18 @@ final class WatchSyncManager: NSObject, ObservableObject {
     func syncBidirectional() {
         sendAll()
         requestPeerLogs()
+    }
+
+    func scheduleSnapshotSync(delay: TimeInterval = 0.35) {
+        deferredSnapshotTask?.cancel()
+        deferredSnapshotTask = Task { [weak self] in
+            let nanos = UInt64(max(0.05, delay) * 1_000_000_000)
+            try? await Task.sleep(nanoseconds: nanos)
+            guard !Task.isCancelled else { return }
+            await MainActor.run {
+                self?.sendAll()
+            }
+        }
     }
 
     private var shouldAttemptForegroundSync: Bool {
@@ -174,11 +187,9 @@ final class WatchSyncManager: NSObject, ObservableObject {
         }
         let isSnapshot = payload[PayloadKey.isSnapshot] as? Bool ?? false
 
-        if isSnapshot {
-            store?.replaceAll(with: incoming)
-        } else {
-            store?.addAll(incoming)
-        }
+        // Snapshot payloads can arrive out of order across iPhone/watch channels.
+        // Merge instead of replacing to avoid dropping newer local entries.
+        store?.addAll(incoming)
 
         lastSuccessfulSyncAt = .now
         setStatus("Synced", detail: "Latest logs merged.", level: .success)
